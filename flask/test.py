@@ -83,11 +83,25 @@ def test4():
   return status_code == 200
 
 
+def test5():
+  print "TEST 5"
+
+  headers     = {'Accept': 'application/json'}
+  url         = "%s/people" % BASE_URL
+  response    = requests.get(url, headers=headers)
+  status_code = response.status_code
+
+  print "STATUS: %s" % status_code
+  print "DATA:   %s" % response.json()
+
+  return status_code == 200
+
+
 if __name__ == "__main__":
   num_pass = 0
   num_fail = 0
 
-  for test in [test1, test2, test3, test4]:
+  for test in [test1, test2, test3, test4, test5]:
     if test():
       num_pass += 1
       print "PASS"

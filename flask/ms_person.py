@@ -24,6 +24,14 @@ def help():
   return jsonify(func_list)
 
 
+@app.route('/people', methods=['GET'])
+def people():
+  ps     = PersonStore()
+  people = ps.people
+
+  return json.dumps(people)
+
+
 @app.route('/person/<int:person_id>', methods=['GET'])
 def read_person(person_id):
   ps      = PersonStore()

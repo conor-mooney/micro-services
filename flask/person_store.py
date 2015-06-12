@@ -61,6 +61,7 @@ class PersonStore(object):
     for i, person in enumerate(self.people):
       if person['id'] == person_id:
         del(self.__people[i])
+        person_data['id'] = person_id
         self.__people.append(person_data)
         self.__save_data()
         return person
