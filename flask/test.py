@@ -78,7 +78,7 @@ def test4():
   status_code = response.status_code
 
   print "STATUS: %s" % status_code
-  #print "DATA:   %s" % response.json()
+  print "DATA:   %s" % response.json()
 
   return status_code == 200
 
