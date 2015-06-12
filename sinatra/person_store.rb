@@ -27,7 +27,39 @@ class PersonStore
   end
 
 
-  def update_person(person_id, person)
+  def update_person(person_id, person_data)
+    @people.each do |person|
+      if person['id'] == person_id
+        person_data['id'] = person_id
+        @people -= [person]
+        @people << person_data
+        save_data
+        return person_data
+      end
+    end
+
+    nil
+  end
+
+
+  def delete_person(person_id)
+    @people.each do |person|
+      if person['id'] == person_id
+        @people -= [person]
+        save_data
+        return true
+      end
+    end
+
+    false
+  end
+
+
+  def create_person(person_data)
+    person_data['id'] = next_id
+    @people << person_data
+    save_data
+    person_data
   end
 
 
@@ -49,6 +81,11 @@ class PersonStore
 
 
   def next_id()
+    if @people.length > 0
+      return @people.map {|m| m['id']}.max + 1
+    else
+      return 1
+    end
   end
 
 end
