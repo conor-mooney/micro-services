@@ -13,6 +13,17 @@ def info():
   return "person microservice"
 
 
+@app.route('/help', methods = ['GET'])
+def help():
+  func_list = {}
+
+  for rule in app.url_map.iter_rules():
+    if rule.endpoint != 'static':
+      func_list[rule.rule] = app.view_functions[rule.endpoint].__doc__
+
+  return jsonify(func_list)
+
+
 @app.route('/person/<int:person_id>', methods=['GET'])
 def read_person(person_id):
   ps      = PersonStore()
