@@ -10,7 +10,7 @@ app = Flask('person')
 
 @app.route('/')
 def info():
-  return "person microservice"
+  return "person microservice (flask)"
 
 
 @app.route('/help', methods = ['GET'])
