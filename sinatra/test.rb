@@ -73,14 +73,15 @@ test4 = Proc.new do
 
   return false if status_code != 200
 
-  person_id             = JSON.parse(response.body)['id']
-  payload               = response.body
+  person                = JSON.parse(response.body)
+  person_id             = person['id']
+  payload               = person
   payload['first name'] = "I'm"
   payload['last name']  = "Changed!"
 
-  headers     = {'Accept' => 'application/json'}
+  headers     = {'Accept' => 'application/json', 'Content-Type' => 'application/json'}
   url         = "#{BASE_URL}/person/#{person_id}"
-  response    = HTTParty.put(url, :headers => headers, :body => payload)
+  response    = HTTParty.put(url, :headers => headers, :body => payload.to_json)
   status_code = response.code
 
   puts "STATUS: #{status_code}"
