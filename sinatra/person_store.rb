@@ -38,7 +38,7 @@ class PersonStore
       end
     end
 
-    nil
+    return nil
   end
 
 
