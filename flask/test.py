@@ -73,8 +73,9 @@ def test4():
   if status_code != 200:
     return False
 
-  person_id             = response.json()['id']
-  payload               = response.json()
+  person                = response.json()
+  person_id             = person['id']
+  payload               = person
   payload['first name'] = "I'm"
   payload['last name']  = "Changed!"
 
