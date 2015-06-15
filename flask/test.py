@@ -43,6 +43,8 @@ def test3():
   response    = requests.post(url, headers=headers, data=json.dumps(payload))
   status_code = response.status_code
 
+  print "STATUS: %s" % status_code
+
   if status_code != 200:
     return False
 
@@ -51,6 +53,8 @@ def test3():
   url         = "%s/person/%d" % (BASE_URL, person_id)
   response    = requests.delete(url, headers=headers)
   status_code = response.status_code
+
+  print "STATUS: %s" % status_code
 
   return status_code == 200
 
@@ -63,6 +67,8 @@ def test4():
   payload     = {"first name": "Change", "last name": "Me"}
   response    = requests.post(url, headers=headers, data=json.dumps(payload))
   status_code = response.status_code
+
+  print "STATUS: %s" % status_code
 
   if status_code != 200:
     return False
@@ -102,6 +108,8 @@ if __name__ == "__main__":
   num_fail = 0
 
   for test in [test1, test2, test3, test4, test5]:
+    print "-----------------------------------------------------------"
+
     if test():
       num_pass += 1
       print "PASS"
@@ -109,5 +117,6 @@ if __name__ == "__main__":
       num_fail += 1
       print "FAIL"
 
+  print "==========================================================="
   print "%d passed, %d failed" % (num_pass, num_fail)
 
