@@ -87,6 +87,7 @@ router.post('/person', function(req, res) {
 router.put('/person/:person_id', function(req, res) {
   var person    = req.body;
   var person_id = parseInt(req.params['person_id']);
+  var found     = false;
 
   person['id'] = person_id;
 
@@ -101,6 +102,7 @@ router.put('/person/:person_id', function(req, res) {
           if (p['id'] == person_id) {
             people.splice(index, 1);
             people.push(person);
+            found = true;
 
             fs.writeFile('people.json', 
               JSON.stringify(people, null, 4), 
@@ -113,7 +115,10 @@ router.put('/person/:person_id', function(req, res) {
               });
           }
         });
-        res.json({'status': 'NOT FOUND'});
+
+        if (!found) {
+          res.json({'status': 'NOT FOUND'});
+        }
       }
     });
 });
