@@ -125,7 +125,40 @@ router.put('/person/:person_id', function(req, res) {
 
 
 router.delete('/person/:person_id', function(req, res) {
+  var person_id = parseInt(req.params['person_id']);
+  var found     = false;
+
+  fs.readFile('people.json', 
+    function (err, data) {
+      if (err) {
+        res.json({'error': err});
+      } else {
+        people = JSON.parse(data);
+
+        people.forEach( function(p, index) {
+          if (p['id'] == person_id) {
+            people.splice(index, 1);
+            found = true;
+
+            fs.writeFile('people.json', 
+              JSON.stringify(people, null, 4), 
+              function (err, data) {
+                if (err) {
+                  res.json({'error': err});
+                } else {
+                  res.json({'status': 'DELETED'});
+                }
+              });
+          }
+        });
+
+        if (!found) {
+          res.json({'status': 'NOT FOUND'});
+        }
+      }
+    });
 });
+
 
 module.exports = router;
 
