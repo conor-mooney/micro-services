@@ -13,7 +13,7 @@ Default port: `3000`
 
 To start server:
 
-  npm start
+    npm start
 
 
 flask
