@@ -1,4 +1,6 @@
 <?php
+require 'web/person_store.php';
+
 
 $people = [
   [
@@ -38,9 +40,8 @@ $people = [
   ]
 ];
 
-$people_file = './web/people.json';
-
-file_put_contents($people_file, json_encode($people));
+$ps = new PersonStore();
+$ps->seed($people);
 
 ?>
 
