@@ -28,7 +28,7 @@ $app->get('/people', function() use($app) {
 	$ps     = new PersonStore;
 	$people = $ps->people();
 
-	return new Response($app->json($people), 201);
+	return $app->json($people);
 });
 
 
@@ -36,7 +36,7 @@ $app->get('/person/{id}', function() use($app) {
 	$ps     = new PersonStore;
 	$person = $ps->read_person($app['request']->get('id'));
 
-	return new Response($app->json($person), 201);
+	return $app->json($person);
 });
 
 
@@ -45,7 +45,7 @@ $app->post('/person', function(Request $request) use($app) {
 	$person_data = $request->request;
 	$person      = $ps->create_person($person_data);
 
-	return new Response($app->json($person), 201);
+	return $app->json($person);
 });
 
 
@@ -55,7 +55,7 @@ $app->put('/person/{id}', function(Request $request) use($app) {
 	$person_data->id = (int)$app['request']->get('id');
 	$person          = $ps->update_person($person_data);
 
-	return new Response($app->json($person), 201);
+	return $app->json($person);
 });
 
 
