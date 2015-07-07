@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ] ; then
+	echo "Syntax: $0 <port>"
+	exit 1
+else
+	port=$1
+fi
+
+curl -X GET http://127.0.0.1:$port/
+curl -X GET http://127.0.0.1:$port/people
+curl -X GET http://127.0.0.1:$port/person/123
+curl -X POST -H "Accept: application/json" -d '{"first name": "BAT", "last name": "MAN"}' http://127.0.0.1:$port/person
+curl -X DELETE http://127.0.0.1:$port/person/9
+curl -X PUT -H "Accept: application/json" -H "Content-type: application/json" -d '{"first name": "BAT", "last name": "WOMAN"}' http://127.0.0.1:$port/person/9
+
